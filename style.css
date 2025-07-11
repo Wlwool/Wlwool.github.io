@@ -1,44 +1,144 @@
+/* Подключаем шрифт */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+:root {
+  --font-main: 'Inter', sans-serif;
+
+  /* Светлая тема */
+  --bg: #ffffff;
+  --fg: #1f1f1f;
+  --accent: #007acc;
+  --muted: #666;
+  --border: #e0e0e0;
+
+  /* Темная тема */
+  --bg-dark: #121212;
+  --fg-dark: #f5f5f5;
+  --accent-dark: #4dabf7;
+  --muted-dark: #aaa;
+  --border-dark: #333;
+}
+
 body {
+  font-family: var(--font-main);
+  background-color: var(--bg);
+  color: var(--fg);
   margin: 0;
-  font-family: system-ui, sans-serif;
+  padding: 0;
   line-height: 1.6;
-  background: #f5f5f5;
-  color: #222;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark-mode {
+  background-color: var(--bg-dark);
+  color: var(--fg-dark);
+}
+
+.container {
+  max-width: 960px;
+  margin: auto;
+  padding: 2rem;
 }
 
 header {
-  background: #20232a;
-  color: white;
-  padding: 1rem;
-  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1rem;
 }
 
-nav ul {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
+body.dark-mode header {
+  border-bottom: 1px solid var(--border-dark);
 }
 
 nav a {
-  color: #61dafb;
+  margin-left: 1rem;
   text-decoration: none;
+  color: var(--accent);
+  font-weight: 600;
 }
 
-main {
-  padding: 2rem;
-  max-width: 800px;
-  margin: auto;
+body.dark-mode nav a {
+  color: var(--accent-dark);
+}
+
+h1, h2, h3 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
 }
 
 section {
   margin-bottom: 3rem;
 }
 
-footer {
-  text-align: center;
+p {
+  color: var(--muted);
+}
+
+body.dark-mode p {
+  color: var(--muted-dark);
+}
+
+.toggle-theme {
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: var(--accent);
+}
+
+body.dark-mode .toggle-theme {
+  color: var(--accent-dark);
+}
+
+/* Проекты — карточки */
+.projects-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+.project-card {
+  border: 1px solid var(--border);
   padding: 1rem;
-  background: #20232a;
-  color: white;
+  border-radius: 8px;
+  background-color: #fafafa;
+  transition: transform 0.2s;
+}
+
+.project-card:hover {
+  transform: scale(1.02);
+}
+
+body.dark-mode .project-card {
+  background-color: #1e1e1e;
+  border-color: var(--border-dark);
+}
+
+/* Иконки */
+.social-icons a {
+  margin-right: 1rem;
+  font-size: 1.5rem;
+  color: var(--accent);
+  transition: color 0.2s;
+}
+
+body.dark-mode .social-icons a {
+  color: var(--accent-dark);
+}
+
+.social-icons a:hover {
+  color: #ff4081;
+}
+
+/* AOS */
+[data-aos] {
+  opacity: 0;
+  transition-property: opacity, transform;
+}
+
+[data-aos].aos-animate {
+  opacity: 1;
 }

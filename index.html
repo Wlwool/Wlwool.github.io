@@ -1,56 +1,104 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Wlwool | Портфолио</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <header>
-    <h1>Wlwool</h1>
-    <nav>
-      <ul>
-        <li><a href="#about">Обо мне</a></li>
-        <li><a href="#projects">Проекты</a></li>
-        <li><a href="#skills">Навыки</a></li>
-        <li><a href="#contact">Контакты</a></li>
-      </ul>
-    </nav>
-  </header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wlwool | Портфолио</title>
 
-  <main>
-    <section id="about">
-      <h2>Обо мне</h2>
-      <p>
-Я пишу код на Python и работаю в операционной системе Linux Ubuntu для разработки и развертывания приложений. Вдохновляюсь open-source проектами и постоянно учусь новому.
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/a2e0e6c6a9.js" crossorigin="anonymous"></script>
+
+    <!-- AOS (Animate On Scroll) -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css" />
+
+    <!-- Dark Mode Toggle Script -->
+    <script defer>
+      document.addEventListener('DOMContentLoaded', () => {
+        const toggle = document.getElementById('theme-toggle');
+        toggle.addEventListener('click', () => {
+          document.body.classList.toggle('dark');
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <h1>Wlwool</h1>
+        <ul>
+          <li><a href="#about">Обо мне</a></li>
+          <li><a href="#projects">Проекты</a></li>
+          <li><a href="#skills">Навыки</a></li>
+          <li><a href="#contact">Контакты</a></li>
+        </ul>
+        <button id="theme-toggle"><i class="fas fa-adjust"></i></button>
+      </nav>
+    </header>
+
+    <main>
+      <section id="about" data-aos="fade-up">
+        <h2>Обо мне</h2>
+        <p>Я пишу код на Python и работаю в операционной системе Linux Ubuntu для разработки и развертывания приложений. Вдохновляюсь open-source проектами и постоянно учусь новому.
 В своей работе использую разнообразные библиотеки Python, такие как Flask, Aiogram, Playwright, BeautifulSoup и другие. Также работаю с SQL (PostgreSQL) через SQLAlchemy.
 Я стремлюсь к постоянному совершенствованию и активно ищу новые возможности для профессионального роста.</p>
-    </section>
+      </section>
 
-    <section id="projects">
-      <h2>Проекты</h2>
-      <ul>
-        <li><strong>Название проекта</strong>: краткое описание</li>
-        <li><strong>Другой проект</strong>: краткое описание</li>
-      </ul>
-    </section>
+      <section id="projects" data-aos="fade-up">
+        <h2>Проекты</h2>
+        <div id="github-projects">
+          <p>Загрузка проектов...</p>
+        </div>
+      </section>
 
-    <section id="skills">
-      <h2>Навыки</h2>
-      <p>Python,SQL, Git, Linux, Docker, HTML, CSS и т.д.</p>
-    </section>
+      <section id="skills" data-aos="fade-up">
+        <h2>Навыки</h2>
+        <ul class="skills">
+          <li><i class="fab fa-python"></i> Python</li>
+          <li><i class="fab fa-html5"></i> HTML</li>
+          <li><i class="fab fa-css3-alt"></i> CSS</li>
+          <li><i class="fab fa-js"></i> Docker</li>
+        </ul>
+      </section>
 
-    <section id="contact">
-      <h2>Контакты</h2>
-      <p>Email: <a href="mailto:wlzwool@inbox.ru">wlzwool@inbox.ru</a></p>
-      <p>GitHub: <a href="https://github.com/Wlwool" target="_blank">github.com/Wlwool</a></p>
-    </section>
-  </main>
+      <section id="contact" data-aos="fade-up">
+        <h2>Контакты</h2>
+        <p><i class="fas fa-envelope"></i> wlzwool@inbox.ru</p>
+        <p><i class="fab fa-github"></i> <a href="https://github.com/Wlwool" target="_blank">github.com/Wlwool</a></p>
+      </section>
+    </main>
 
-  <footer>
-    <p>&copy; 2022-2025 Wlwool. Все права защищены.</p>
-  </footer>
-</body>
+    <footer>
+      <p>&copy; 2025 Wlwool</p>
+    </footer>
+
+    <!-- GitHub Projects Fetch -->
+    <script>
+      fetch('https://api.github.com/users/Wlwool/repos')
+        .then(res => res.json())
+        .then(data => {
+          const container = document.getElementById('github-projects');
+          container.innerHTML = '';
+          data.slice(0, 6).forEach(repo => {
+            const card = document.createElement('div');
+            card.className = 'repo-card';
+            card.innerHTML = `
+              <h3><a href="${repo.html_url}" target="_blank">${repo.name}</a></h3>
+              <p>${repo.description || 'Нет описания'}</p>
+              <p><i class="fas fa-star"></i> ${repo.stargazers_count}</p>
+            `;
+            container.appendChild(card);
+          });
+        });
+    </script>
+
+    <!-- AOS init -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
+  </body>
 </html>
 
