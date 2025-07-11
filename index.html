@@ -4,22 +4,33 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Wlwool | Портфолио</title>
-
-    <!-- Font Awesome -->
-    <script src="https://kit.fontawesome.com/a2e0e6c6a9.js" crossorigin="anonymous"></script>
-
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
     <!-- AOS (Animate On Scroll) -->
-    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
-
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
     <!-- CSS -->
-    <link rel="stylesheet" href="styles.css" />
-
+    <link rel="stylesheet" href="style.css" />
     <!-- Dark Mode Toggle Script -->
     <script defer>
       document.addEventListener('DOMContentLoaded', () => {
+        // Темная тему по умолчанию
+        document.body.classList.add('dark');
+        
         const toggle = document.getElementById('theme-toggle');
+        const icon = toggle.querySelector('i');
+        
+        // Иконка луны для темной темы
+        icon.className = 'bi bi-moon-fill';
+        
         toggle.addEventListener('click', () => {
           document.body.classList.toggle('dark');
+          
+          // Смена иконку в зависимости от темы
+          if (document.body.classList.contains('dark')) {
+            icon.className = 'bi bi-moon-fill';
+          } else {
+            icon.className = 'bi bi-brightness-high-fill';
+          }
         });
       });
     </script>
@@ -34,71 +45,161 @@
           <li><a href="#skills">Навыки</a></li>
           <li><a href="#contact">Контакты</a></li>
         </ul>
-        <button id="theme-toggle"><i class="fas fa-adjust"></i></button>
+        <button id="theme-toggle"><i class="bi bi-moon-fill"></i></button>
       </nav>
     </header>
-
     <main>
       <section id="about" data-aos="fade-up">
         <h2>Обо мне</h2>
-        <p>Я пишу код на Python и работаю в операционной системе Linux Ubuntu для разработки и развертывания приложений. Вдохновляюсь open-source проектами и постоянно учусь новому.
-В своей работе использую разнообразные библиотеки Python, такие как Flask, Aiogram, Playwright, BeautifulSoup и другие. Также работаю с SQL (PostgreSQL) через SQLAlchemy.
-Я стремлюсь к постоянному совершенствованию и активно ищу новые возможности для профессионального роста.</p>
+        <p>
+          Я пишу код на Python и работаю в операционной системе Linux Ubuntu для разработки и развертывания приложений. Вдохновляюсь open-source проектами и постоянно учусь новому. В своей работе использую разнообразные библиотеки Python, такие как Flask, Aiogram, Playwright, BeautifulSoup и другие. Также работаю с SQL (PostgreSQL) через SQLAlchemy. Я стремлюсь к постоянному совершенствованию и активно ищу новые возможности для профессионального роста.
+        </p>
       </section>
-
       <section id="projects" data-aos="fade-up">
         <h2>Проекты</h2>
         <div id="github-projects">
           <p>Загрузка проектов...</p>
         </div>
       </section>
-
       <section id="skills" data-aos="fade-up">
         <h2>Навыки</h2>
         <ul class="skills">
-          <li><i class="fab fa-python"></i> Python</li>
-          <li><i class="fab fa-html5"></i> HTML</li>
-          <li><i class="fab fa-css3-alt"></i> CSS</li>
-          <li><i class="fab fa-js"></i> Docker</li>
+          <li><i class="bi bi-filetype-py"></i> Python</li>
+          <li><i class="bi bi-box-seam"></i> Docker</li>
+          <li><i class="bi bi-robot"></i> Aiogram</li>
+          <li><i class="bi bi-flask"></i> Flask</li>
+          <li><i class="bi bi-lightning-charge"></i> FastAPI</li>
+          <li><i class="bi bi-database"></i> SQL</li>
+          <li><i class="bi bi-server"></i> PostgreSQL</li>
+          <li><i class="bi bi-diagram-3"></i> SQLAlchemy</li>
+          <li><i class="bi bi-terminal"></i> Linux</li>
+          <li><i class="bi bi-filetype-html"></i> HTML</li>
+          <li><i class="bi bi-filetype-css"></i> CSS</li>
+          
         </ul>
       </section>
-
       <section id="contact" data-aos="fade-up">
         <h2>Контакты</h2>
-        <p><i class="fas fa-envelope"></i> wlzwool@inbox.ru</p>
-        <p><i class="fab fa-github"></i> <a href="https://github.com/Wlwool" target="_blank">github.com/Wlwool</a></p>
+        <p><i class="bi bi-envelope-fill"></i> wlzwool@inbox.ru</p>
+        <p><i class="bi bi-github"></i> <a href="https://github.com/Wlwool" target="_blank">github.com/Wlwool</a></p>
       </section>
     </main>
-
     <footer>
       <p>&copy; 2025 Wlwool</p>
     </footer>
-
-    <!-- GitHub Projects Fetch -->
+    
+    <!-- GitHub Pinned Projects Script -->
     <script>
-      fetch('https://api.github.com/users/Wlwool/repos')
-        .then(res => res.json())
-        .then(data => {
-          const container = document.getElementById('github-projects');
-          container.innerHTML = '';
-          data.slice(0, 6).forEach(repo => {
-            const card = document.createElement('div');
-            card.className = 'repo-card';
-            card.innerHTML = `
-              <h3><a href="${repo.html_url}" target="_blank">${repo.name}</a></h3>
-              <p>${repo.description || 'Нет описания'}</p>
-              <p><i class="fas fa-star"></i> ${repo.stargazers_count}</p>
-            `;
-            container.appendChild(card);
+      const PINNED_REPO_NAMES = [
+        'SkyVellum',
+        'shtusha-kutusha',
+        'flask-docker-app',
+        'File-sorter',
+        'port_scanner'
+      ];
+      
+      async function fetchPinnedRepos() {
+        try {
+          const response = await fetch('https://api.github.com/users/Wlwool/repos?per_page=100');
+          const allRepos = await response.json();
+          
+          const pinnedRepos = [];
+          
+          // Сохраняем порядок из массива PINNED_REPO_NAMES
+          PINNED_REPO_NAMES.forEach(repoName => {
+            const repo = allRepos.find(r => r.name === repoName);
+            if (repo) {
+              pinnedRepos.push(repo);
+            }
           });
+          
+          if (pinnedRepos.length > 0) {
+            displayRepos(pinnedRepos, true);
+          } else {
+            // показ самыx популярных репозиториев
+            const topRepos = allRepos
+              .sort((a, b) => b.stargazers_count - a.stargazers_count)
+              .slice(0, 6);
+            displayRepos(topRepos, false);
+          }
+          
+        } catch (error) {
+          console.error('Ошибка загрузки репозиториев:', error);
+          document.getElementById('github-projects').innerHTML = '<p>Ошибка загрузки проектов</p>';
+        }
+      }
+      
+      function displayRepos(repos, isPinned = false) {
+        const container = document.getElementById('github-projects');
+        container.innerHTML = '';
+        
+        // заголовок
+        const header = document.createElement('div');
+        header.className = 'projects-header';
+        header.innerHTML = `<p class="projects-note">${isPinned ? '📌 Закрепленные репозитории' : '⭐ Популярные репозитории'}</p>`;
+        container.appendChild(header);
+        
+        repos.forEach(repo => {
+          const card = document.createElement('div');
+          card.className = 'repo-card';
+          
+          const languageColor = getLanguageColor(repo.language);
+          const languageInfo = repo.language 
+            ? `<span class="language" style="color: ${languageColor}">${repo.language}</span>`
+            : '';
+          
+          // дата последнего обновления
+          const updatedDate = new Date(repo.updated_at).toLocaleDateString('ru-RU');
+          
+          card.innerHTML = `
+            <h3><a href="${repo.html_url}" target="_blank">${repo.name}</a></h3>
+            <p class="repo-description">${repo.description || 'Нет описания'}</p>
+            <div class="repo-stats">
+              ${languageInfo}
+              <span><i class="bi bi-star-fill"></i> ${repo.stargazers_count}</span>
+              <span><i class="bi bi-diagram-3-fill"></i> ${repo.forks_count}</span>
+              <span class="updated-date"><i class="bi bi-clock"></i> ${updatedDate}</span>
+            </div>
+          `;
+          container.appendChild(card);
         });
+      }
+      
+      function getLanguageColor(language) {
+        const colors = {
+          'Python': '#3776ab',
+          'JavaScript': '#f1e05a',
+          'HTML': '#e34c26',
+          'CSS': '#1572b6',
+          'TypeScript': '#2b7489',
+          'Java': '#b07219',
+          'C++': '#f34b7d',
+          'C': '#555555',
+          'Go': '#00add8',
+          'Rust': '#dea584',
+          'PHP': '#4f5d95',
+          'Ruby': '#701516',
+          'Swift': '#ffac45',
+          'Kotlin': '#7f52ff',
+          'Dart': '#00b4ab',
+          'Shell': '#89e051',
+          'Dockerfile': '#384d54'
+        };
+        return colors[language] || '#666';
+      }
+      
+      // загрузка репозиториев
+      fetchPinnedRepos();
     </script>
-
+    
     <!-- AOS init -->
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script>
-      AOS.init();
+      AOS.init({
+        duration: 800,
+        once: true,
+        offset: 100
+      });
     </script>
   </body>
 </html>
-

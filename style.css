@@ -1,16 +1,14 @@
-/* Подключаем шрифт */
+/* Шрифт */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
 
 :root {
   --font-main: 'Inter', sans-serif;
-
   /* Светлая тема */
   --bg: #ffffff;
   --fg: #1f1f1f;
   --accent: #007acc;
   --muted: #666;
   --border: #e0e0e0;
-
   /* Темная тема */
   --bg-dark: #121212;
   --fg-dark: #f5f5f5;
@@ -29,38 +27,116 @@ body {
   transition: background-color 0.3s, color 0.3s;
 }
 
-body.dark-mode {
+/* Темная тема */
+body.dark {
   background-color: var(--bg-dark);
   color: var(--fg-dark);
 }
 
-.container {
-  max-width: 960px;
-  margin: auto;
-  padding: 2rem;
+/* Header */
+header {
+  padding: 1rem 2rem;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background-color: var(--bg);
+  backdrop-filter: blur(10px);
+  z-index: 100;
 }
 
-header {
+body.dark header {
+  border-bottom: 1px solid var(--border-dark);
+  background-color: var(--bg-dark);
+}
+
+nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid var(--border);
-  padding-bottom: 1rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-body.dark-mode header {
-  border-bottom: 1px solid var(--border-dark);
-}
-
-nav a {
-  margin-left: 1rem;
-  text-decoration: none;
-  color: var(--accent);
+nav h1 {
+  margin: 0;
+  font-size: 1.5rem;
   font-weight: 600;
 }
 
-body.dark-mode nav a {
+nav ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 2rem;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: var(--accent);
+  font-weight: 600;
+  transition: color 0.2s;
+  position: relative;
+}
+
+nav ul li a:hover {
   color: var(--accent-dark);
+}
+
+nav ul li a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: var(--accent);
+  transition: width 0.2s;
+}
+
+nav ul li a:hover::after {
+  width: 100%;
+}
+
+body.dark nav ul li a {
+  color: var(--accent-dark);
+}
+
+body.dark nav ul li a::after {
+  background-color: var(--accent-dark);
+}
+
+/* Кнопка переключения темы */
+#theme-toggle {
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: var(--accent);
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+#theme-toggle:hover {
+  background-color: var(--border);
+  transform: scale(1.1);
+}
+
+body.dark #theme-toggle {
+  color: var(--accent-dark);
+}
+
+body.dark #theme-toggle:hover {
+  background-color: var(--border-dark);
+}
+
+/* Основной контент */
+main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
 }
 
 h1, h2, h3 {
@@ -69,76 +145,339 @@ h1, h2, h3 {
   font-weight: 600;
 }
 
+h2 {
+  font-size: 2rem;
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 0.5rem;
+  display: inline-block;
+}
+
+body.dark h2 {
+  border-bottom-color: var(--accent-dark);
+}
+
 section {
-  margin-bottom: 3rem;
+  margin-bottom: 4rem;
 }
 
 p {
   color: var(--muted);
+  font-size: 1.1rem;
+  line-height: 1.7;
 }
 
-body.dark-mode p {
+body.dark p {
   color: var(--muted-dark);
 }
 
-.toggle-theme {
-  background: none;
-  border: none;
-  font-size: 1.4rem;
-  cursor: pointer;
-  color: var(--accent);
+/* Проекты */
+.projects-header {
+  margin-bottom: 2rem;
 }
 
-body.dark-mode .toggle-theme {
-  color: var(--accent-dark);
+.projects-note {
+  font-style: italic;
+  color: var(--muted);
+  margin: 0;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-/* Проекты — карточки */
-.projects-grid {
+body.dark .projects-note {
+  color: var(--muted-dark);
+}
+
+#github-projects {
   display: grid;
-  gap: 1.5rem;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
 }
 
-.project-card {
+.repo-card {
   border: 1px solid var(--border);
-  padding: 1rem;
-  border-radius: 8px;
+  padding: 2rem;
+  border-radius: 12px;
   background-color: #fafafa;
-  transition: transform 0.2s;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
-.project-card:hover {
-  transform: scale(1.02);
+.repo-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-dark));
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
 }
 
-body.dark-mode .project-card {
-  background-color: #1e1e1e;
+.repo-card:hover::before {
+  transform: scaleX(1);
+}
+
+.repo-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+body.dark .repo-card {
   border-color: var(--border-dark);
+  background-color: #1a1a1a;
 }
 
-/* Иконки */
-.social-icons a {
-  margin-right: 1rem;
-  font-size: 1.5rem;
-  color: var(--accent);
+body.dark .repo-card:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.repo-card h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+}
+
+.repo-card h3 a {
+  text-decoration: none;
+  color: var(--fg);
   transition: color 0.2s;
 }
 
-body.dark-mode .social-icons a {
+.repo-card h3 a:hover {
+  color: var(--accent);
+}
+
+body.dark .repo-card h3 a {
+  color: var(--fg-dark);
+}
+
+body.dark .repo-card h3 a:hover {
   color: var(--accent-dark);
 }
 
-.social-icons a:hover {
-  color: #ff4081;
+.repo-description {
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+  min-height: 2.4em;
+  font-size: 1rem;
 }
 
-/* AOS */
-[data-aos] {
-  opacity: 0;
-  transition-property: opacity, transform;
+body.dark .repo-description {
+  color: var(--muted-dark);
 }
 
-[data-aos].aos-animate {
-  opacity: 1;
+.repo-stats {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+  flex-wrap: wrap;
+}
+
+body.dark .repo-stats {
+  color: var(--muted-dark);
+}
+
+.repo-stats .language {
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding-left: 1rem;
+}
+
+.repo-stats .language::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+
+.repo-stats span {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.repo-stats .updated-date {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+body.dark .repo-stats .updated-date {
+  color: var(--muted-dark);
+}
+
+/* Навыки */
+.skills {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+}
+
+.skills li {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.skills li:hover {
+  background-color: var(--accent);
+  color: white;
+  transform: translateY(-2px);
+}
+
+body.dark .skills li {
+  background-color: #1a1a1a;
+  color: var(--fg-dark);
+}
+
+body.dark .skills li:hover {
+  background-color: var(--accent-dark);
+}
+
+.skills li i {
+  font-size: 1.5rem;
+}
+
+/* Контакты */
+#contact p {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+#contact p i {
+  font-size: 1.3rem;
+  color: var(--accent);
+}
+
+body.dark #contact p i {
+  color: var(--accent-dark);
+}
+
+#contact a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+#contact a:hover {
+  color: var(--accent-dark);
+  text-decoration: underline;
+}
+
+body.dark #contact a {
+  color: var(--accent-dark);
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 2rem;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  background-color: #f8f9fa;
+}
+
+body.dark footer {
+  border-top-color: var(--border-dark);
+  background-color: #1a1a1a;
+  color: var(--muted-dark);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  nav ul {
+    gap: 1rem;
+  }
+  
+  main {
+    padding: 1rem;
+  }
+  
+  #github-projects {
+    grid-template-columns: 1fr;
+  }
+  
+  .repo-card {
+    padding: 1.5rem;
+  }
+  
+  .skills {
+    grid-template-columns: 1fr;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  nav ul {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+  }
+  
+  .repo-stats {
+    gap: 1rem;
+  }
+  
+  .repo-stats .language {
+    padding-left: 0.8rem;
+  }
+  
+  .repo-stats .language::before {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+/* Анимации загрузки */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.repo-card {
+  animation: fadeIn 0.6s ease-out;
+}
+
+/* Плавная прокрутка */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Улучшенные переходы */
+* {
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
 }
