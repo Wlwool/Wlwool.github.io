@@ -1,7 +1,7 @@
 const GITHUB_USER = 'Wlwool';
 const PROJECTS_URL = 'projects.json';
 const REPOS_URL = `https://api.github.com/users/${GITHUB_USER}/repos?per_page=100`;
-const SITE_START_YEAR = 2025;
+const SITE_START_YEAR = 2018;
 
 const LANGUAGE_COLORS = {
   Python: '#3776ab',
