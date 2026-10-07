@@ -316,6 +316,46 @@ body.dark .repo-stats .updated-date {
   color: var(--muted-dark);
 }
 
+.repo-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0 0 1.5rem;
+  padding: 0;
+}
+
+.repo-tags li {
+  padding: 0.15rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+body.dark .repo-tags li {
+  border-color: var(--border-dark);
+  color: var(--muted-dark);
+}
+
+.repo-links {
+  margin-top: 1rem;
+}
+
+.repo-links a {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.repo-links a:hover {
+  text-decoration: underline;
+}
+
+body.dark .repo-links a {
+  color: var(--accent-dark);
+}
+
 /* Навыки */
 .skills {
   display: grid;

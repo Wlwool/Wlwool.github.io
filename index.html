@@ -85,114 +85,11 @@
       </section>
     </main>
     <footer>
-      <p>&copy; 2025 Wlwool</p>
+      <p>&copy; <span id="year">2018</span> Wlwool</p>
     </footer>
     
-    <!-- GitHub Pinned Projects Script -->
-    <script>
-      const PINNED_REPO_NAMES = [
-        'SkyVellum',
-        'shtusha-kutusha',
-        'flask-docker-app',
-        'File-sorter',
-        'port_scanner'
-      ];
-      
-      async function fetchPinnedRepos() {
-        try {
-          const response = await fetch('https://api.github.com/users/Wlwool/repos?per_page=100');
-          const allRepos = await response.json();
-          
-          const pinnedRepos = [];
-          
-          // Сохраняем порядок из массива PINNED_REPO_NAMES
-          PINNED_REPO_NAMES.forEach(repoName => {
-            const repo = allRepos.find(r => r.name === repoName);
-            if (repo) {
-              pinnedRepos.push(repo);
-            }
-          });
-          
-          if (pinnedRepos.length > 0) {
-            displayRepos(pinnedRepos, true);
-          } else {
-            // показ самыx популярных репозиториев
-            const topRepos = allRepos
-              .sort((a, b) => b.stargazers_count - a.stargazers_count)
-              .slice(0, 6);
-            displayRepos(topRepos, false);
-          }
-          
-        } catch (error) {
-          console.error('Ошибка загрузки репозиториев:', error);
-          document.getElementById('github-projects').innerHTML = '<p>Ошибка загрузки проектов</p>';
-        }
-      }
-      
-      function displayRepos(repos, isPinned = false) {
-        const container = document.getElementById('github-projects');
-        container.innerHTML = '';
-        
-        // заголовок
-        const header = document.createElement('div');
-        header.className = 'projects-header';
-        header.innerHTML = `<p class="projects-note">${isPinned ? '📌 Закрепленные репозитории' : '⭐ Популярные репозитории'}</p>`;
-        container.appendChild(header);
-        
-        repos.forEach(repo => {
-          const card = document.createElement('div');
-          card.className = 'repo-card';
-          
-          const languageColor = getLanguageColor(repo.language);
-          const languageInfo = repo.language 
-            ? `<span class="language" style="color: ${languageColor}">${repo.language}</span>`
-            : '';
-          
-          // дата последнего обновления
-          const updatedDate = new Date(repo.updated_at).toLocaleDateString('ru-RU');
-          
-          card.innerHTML = `
-            <h3><a href="${repo.html_url}" target="_blank">${repo.name}</a></h3>
-            <p class="repo-description">${repo.description || 'Нет описания'}</p>
-            <div class="repo-stats">
-              ${languageInfo}
-              <span><i class="bi bi-star-fill"></i> ${repo.stargazers_count}</span>
-              <span><i class="bi bi-diagram-3-fill"></i> ${repo.forks_count}</span>
-              <span class="updated-date"><i class="bi bi-clock"></i> ${updatedDate}</span>
-            </div>
-          `;
-          container.appendChild(card);
-        });
-      }
-      
-      function getLanguageColor(language) {
-        const colors = {
-          'Python': '#3776ab',
-          'JavaScript': '#f1e05a',
-          'HTML': '#e34c26',
-          'CSS': '#1572b6',
-          'TypeScript': '#2b7489',
-          'Java': '#b07219',
-          'C++': '#f34b7d',
-          'C': '#555555',
-          'Go': '#00add8',
-          'Rust': '#dea584',
-          'PHP': '#4f5d95',
-          'Ruby': '#701516',
-          'Swift': '#ffac45',
-          'Kotlin': '#7f52ff',
-          'Dart': '#00b4ab',
-          'Shell': '#89e051',
-          'Dockerfile': '#384d54'
-        };
-        return colors[language] || '#666';
-      }
-      
-      // загрузка репозиториев
-      fetchPinnedRepos();
-    </script>
-    
     <!-- AOS init -->
+    <script src="main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script>
       AOS.init({
