@@ -12,7 +12,7 @@
   /* Темная тема */
   --bg-dark: #121212;
   --fg-dark: #f5f5f5;
-  --accent-dark: #4dabf7;
+  --accent-dark: #b3262f;
   --muted-dark: #aaa;
   --border-dark: #333;
 }
@@ -441,6 +441,10 @@ body.dark footer {
   border-top-color: var(--border-dark);
   background-color: #1a1a1a;
   color: var(--muted-dark);
+}
+
+#clock {
+  font-variant-numeric: tabular-nums;
 }
 
 /* Адаптивность */

@@ -1,7 +1,6 @@
 const GITHUB_USER = 'Wlwool';
 const PROJECTS_URL = 'projects.json';
 const REPOS_URL = `https://api.github.com/users/${GITHUB_USER}/repos?per_page=100`;
-const SITE_START_YEAR = 2018;
 
 const LANGUAGE_COLORS = {
   Python: '#3776ab',
@@ -116,17 +115,22 @@ async function showProjects() {
   }
 }
 
-function showCurrentYear() {
-  const yearElement = document.getElementById('year');
-  if (!yearElement) {
+function showClock() {
+  const clockElement = document.getElementById('clock');
+  if (!clockElement) {
     return;
   }
-  const currentYear = new Date().getFullYear();
-  yearElement.textContent =
-    currentYear > SITE_START_YEAR
-      ? `${SITE_START_YEAR}–${currentYear}`
-      : String(SITE_START_YEAR);
+
+  function update() {
+    const now = new Date();
+    clockElement.dateTime = now.toISOString();
+    clockElement.textContent =
+      `${now.toLocaleDateString('ru-RU')} ${now.toLocaleTimeString('ru-RU')}`;
+  }
+
+  update();
+  setInterval(update, 1000);
 }
 
-showCurrentYear();
+showClock();
 showProjects();
