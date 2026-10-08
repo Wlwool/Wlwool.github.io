@@ -22,6 +22,13 @@ const LANGUAGE_COLORS = {
   Dockerfile: '#384d54',
 };
 
+let galleryItems = [];
+let galleryIndex = 0;
+
+function byId(id) {
+  return document.getElementById(id);
+}
+
 function getLanguageColor(language) {
   return LANGUAGE_COLORS[language] || '#666';
 }
@@ -43,7 +50,6 @@ async function loadProjects() {
   return response.json();
 }
 
-// Живые данные GitHub необязательны: при любой ошибке карточки остаются.
 async function loadRepos() {
   try {
     const response = await fetch(REPOS_URL);
@@ -58,6 +64,59 @@ async function loadRepos() {
   }
 }
 
+function renderGallery() {
+  const item = galleryItems[galleryIndex];
+  const hasSeveral = galleryItems.length > 1;
+  byId('gallery-image').src = item.src;
+  byId('gallery-image').alt = item.alt || '';
+  byId('gallery-caption').textContent = item.alt || '';
+  byId('gallery-counter').textContent = `${galleryIndex + 1} / ${galleryItems.length}`;
+  byId('gallery-prev').hidden = !hasSeveral;
+  byId('gallery-next').hidden = !hasSeveral;
+}
+
+function stepGallery(delta) {
+  galleryIndex = (galleryIndex + delta + galleryItems.length) % galleryItems.length;
+  renderGallery();
+}
+
+function openGallery(title, items) {
+  galleryItems = items;
+  galleryIndex = 0;
+  byId('gallery-title').textContent = title;
+  renderGallery();
+  byId('gallery').showModal();
+}
+
+function setupGallery() {
+  const dialog = byId('gallery');
+  if (!dialog) {
+    return;
+  }
+
+  byId('gallery-close').addEventListener('click', () => dialog.close());
+  byId('gallery-prev').addEventListener('click', () => stepGallery(-1));
+  byId('gallery-next').addEventListener('click', () => stepGallery(1));
+
+  // Клик по затемнённому фону закрывает окно.
+  dialog.addEventListener('click', (event) => {
+    if (event.target === dialog) {
+      dialog.close();
+    }
+  });
+
+  dialog.addEventListener('keydown', (event) => {
+    if (galleryItems.length < 2) {
+      return;
+    }
+    if (event.key === 'ArrowLeft') {
+      stepGallery(-1);
+    } else if (event.key === 'ArrowRight') {
+      stepGallery(1);
+    }
+  });
+}
+
 function createProjectCard(project, repo) {
   const card = document.createElement('div');
   card.className = 'repo-card';
@@ -68,6 +127,11 @@ function createProjectCard(project, repo) {
   const title = repoUrl
     ? `<a href="${escapeHtml(repoUrl)}" target="_blank" rel="noopener">${escapeHtml(project.title)}</a>`
     : escapeHtml(project.title);
+
+  const badge =
+    project.kind === 'commercial'
+      ? '<span class="repo-badge">Заказной проект, код закрыт</span>'
+      : '';
 
   const tags = (project.stack || [])
     .map((item) => `<li>${escapeHtml(item)}</li>`)
@@ -86,22 +150,39 @@ function createProjectCard(project, repo) {
     );
   }
 
-  const demo = project.demo
-    ? `<div class="repo-links"><a href="${escapeHtml(project.demo)}" target="_blank" rel="noopener">Открыть демо</a></div>`
-    : '';
+  const screenshots = Array.isArray(project.screenshots) ? project.screenshots : [];
+  const links = [];
+  if (project.demo) {
+    links.push(
+      `<a href="${escapeHtml(project.demo)}" target="_blank" rel="noopener">Открыть демо</a>`
+    );
+  }
+  if (screenshots.length > 0) {
+    links.push(
+      `<button type="button" class="repo-gallery-button">Скриншоты (${screenshots.length})</button>`
+    );
+  }
 
   card.innerHTML = `
+    ${badge}
     <h3>${title}</h3>
     <p class="repo-description">${escapeHtml(project.description)}</p>
     ${tags ? `<ul class="repo-tags">${tags}</ul>` : ''}
     ${stats.length ? `<div class="repo-stats">${stats.join('')}</div>` : ''}
-    ${demo}
+    ${links.length ? `<div class="repo-links">${links.join('')}</div>` : ''}
   `;
+
+  const galleryButton = card.querySelector('.repo-gallery-button');
+  if (galleryButton) {
+    galleryButton.addEventListener('click', () =>
+      openGallery(project.title, screenshots)
+    );
+  }
   return card;
 }
 
 async function showProjects() {
-  const container = document.getElementById('github-projects');
+  const container = byId('github-projects');
   try {
     const [projects, repos] = await Promise.all([loadProjects(), loadRepos()]);
     container.innerHTML = '';
@@ -116,7 +197,7 @@ async function showProjects() {
 }
 
 function showClock() {
-  const clockElement = document.getElementById('clock');
+  const clockElement = byId('clock');
   if (!clockElement) {
     return;
   }
@@ -132,5 +213,6 @@ function showClock() {
   setInterval(update, 1000);
 }
 
+setupGallery();
 showClock();
 showProjects();

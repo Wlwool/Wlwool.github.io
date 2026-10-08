@@ -23,5 +23,17 @@
     "repo": "shtusha-kutusha",
     "description": "Discord-бот для напоминаний на конкретное время или через заданный промежуток. Напоминания хранятся в SQLite и восстанавливаются после перезапуска, у бота динамический статус с данными о серверах, пользователях и пинге, все изменения логируются.",
     "stack": ["Python", "discord.py", "APScheduler", "aiosqlite", "dateparser", "Docker"]
+  },
+  {
+    "title": "Telegram-бот для заявок на монтаж и ремонт",
+    "kind": "commercial",
+    "description": "Заказной бот для компании, которая устанавливает спутниковое ТВ, видеонаблюдение и интернет. Клиент выбирает услугу и дату, оставляет имя и телефон, заявка сохраняется в базе. Также в боте справка, контакты, обратная связь, фотоотчёты о работах и информация по операторам.",
+    "stack": ["Python", "Aiogram", "SQLAlchemy"],
+    "screenshots": [
+      { "src": "img/projects/tgsatbot/start.png", "alt": "Команда /start: выбор услуги" },
+      { "src": "img/projects/tgsatbot/appl.png", "alt": "Оформление заявки" },
+      { "src": "img/projects/tgsatbot/accept_app.png", "alt": "Подтверждение принятой заявки" },
+      { "src": "img/projects/tgsatbot/help.png", "alt": "Команда /help: справка по боту" }
+    ]
   }
 ]
