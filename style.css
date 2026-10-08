@@ -861,3 +861,15 @@ body.dark .copy-button {
 body.dark .copy-status {
   color: var(--muted-dark);
 }
+
+/* Перевод заголовка в виде комментария */
+.heading-note {
+  margin-left: 0.8rem;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+body.dark .heading-note {
+  color: var(--muted-dark);
+}

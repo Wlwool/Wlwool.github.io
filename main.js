@@ -240,6 +240,29 @@ function typeWhoami() {
   }, 400);
 }
 
+async function copyText(text) {
+  if (navigator.clipboard && window.isSecureContext) {
+    await navigator.clipboard.writeText(text);
+    return;
+  }
+
+  // Запасной путь для небезопасного контекста.
+  const field = document.createElement('textarea');
+  field.value = text;
+  field.setAttribute('readonly', '');
+  field.style.position = 'fixed';
+  field.style.opacity = '0';
+  document.body.appendChild(field);
+  field.select();
+  try {
+    if (!document.execCommand('copy')) {
+      throw new Error('execCommand("copy") вернул false');
+    }
+  } finally {
+    document.body.removeChild(field);
+  }
+}
+
 function setupCopyEmail() {
   const button = byId('copy-email');
   const status = byId('copy-status');
@@ -250,7 +273,7 @@ function setupCopyEmail() {
   let timer;
   button.addEventListener('click', async () => {
     try {
-      await navigator.clipboard.writeText(button.dataset.email);
+      await copyText(button.dataset.email);
       status.textContent = 'Скопировано';
     } catch (error) {
       console.warn('Не удалось скопировать:', error);
