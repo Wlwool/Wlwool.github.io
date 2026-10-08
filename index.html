@@ -51,19 +51,32 @@
     </header>
     <main>
       <section id="about" data-aos="fade-up">
-        <h2><svg class="section-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>Обо мне</h2>
-        <p>
-          Я пишу код на Python и работаю в операционной системе Linux Ubuntu для разработки и развертывания приложений. Вдохновляюсь open-source проектами и постоянно учусь новому. В своей работе использую разнообразные библиотеки Python, такие как Flask, Aiogram, Playwright, BeautifulSoup и другие. Также работаю с SQL (PostgreSQL) через SQLAlchemy. Я стремлюсь к постоянному совершенствованию и активно ищу новые возможности для профессионального роста.
-        </p>
-      </section>
+  <h2>about</h2>
+  <div class="terminal">
+    <div class="terminal-bar" aria-hidden="true"><span></span><span></span><span></span></div>
+    <div class="terminal-body">
+      <img class="avatar" src="manul_.png" alt="Фото Wlwool" />
+      <div class="terminal-text">
+        <p class="terminal-line"><span class="prompt">$</span> <span id="whoami-command" data-text="whoami">whoami</span><span class="terminal-cursor" aria-hidden="true"></span></p>
+        <div class="terminal-rest">
+          <p class="terminal-output">wlwool<br />Python backend-разработчик</p>
+          <p class="terminal-line"><span class="prompt">$</span> cat about.txt</p>
+          <p class="terminal-output">
+            Пишу backend на Python: парсинг, веб-сервисы на Flask и FastAPI, Telegram- и Discord-боты на Aiogram и discord.py. Работаю с базами данных через PostreSQL, SQLite и SQLAlchemy, упаковываю приложения в Docker. Разрабатываю и разворачиваю проекты на Linux. Беру заказы на ботов, парсинг и веб-сервисы: от постановки задачи до запуска.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
       <section id="projects" data-aos="fade-up">
-        <h2><svg class="section-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Проекты</h2>
+        <h2>Проекты</h2>
         <div id="github-projects">
           <p>Загрузка проектов...</p>
         </div>
       </section>
       <section id="skills" data-aos="fade-up">
-        <h2><svg class="section-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="8 7 3 12 8 17"/><polyline points="16 7 21 12 16 17"/><line x1="14" y1="4" x2="10" y2="20"/></svg>Навыки</h2>
+        <h2>Навыки</h2>
         <ul class="skills">
           <li><i class="bi bi-filetype-py"></i> Python</li>
           <li><i class="bi bi-box-seam"></i> Docker</li>
@@ -80,8 +93,8 @@
         </ul>
       </section>
       <section id="contact" data-aos="fade-up">
-        <h2><svg class="section-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg>Контакты</h2>
-        <p><i class="bi bi-envelope-fill"></i> wlzwool@inbox.ru</p>
+        <h2>Контакты</h2>
+        <p><i class="bi bi-envelope-fill"></i> <button type="button" id="copy-email" class="copy-button" data-email="wlzwool@inbox.ru">wlzwool@inbox.ru</button> <span id="copy-status" class="copy-status" role="status"></span></p>
         <p><i class="bi bi-github"></i> <a href="https://github.com/Wlwool" target="_blank">github.com/Wlwool</a></p>
       </section>
     </main>

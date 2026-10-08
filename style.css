@@ -3,6 +3,7 @@
 
 :root {
   --font-main: 'Inter', sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
   /* Светлая тема */
   --bg: #ffffff;
   --fg: #1f1f1f;
@@ -146,6 +147,7 @@ h1, h2, h3 {
 }
 
 h2 {
+  font-family: var(--font-mono);
   font-size: 1.6rem;
   border-bottom: 2px solid var(--accent);
   padding-bottom: 0.5rem;
@@ -664,19 +666,198 @@ body.dark .gallery-close:hover {
   font-size: 0.9rem;
 }
 
-/* Иконки разделов */
-.section-icon {
-  width: 1em;
-  height: 1em;
-  margin-right: 0.5rem;
-  vertical-align: -0.15em;
-  fill: none;
-  stroke: var(--accent);
-  stroke-width: 1.8;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+/* Заголовки в стиле терминала */
+h2::before {
+  content: '~/';
+  margin-right: 0.15rem;
+  color: var(--accent);
 }
 
-body.dark .section-icon {
-  stroke: var(--accent-dark);
+body.dark h2::before {
+  color: var(--accent-dark);
+}
+
+#contact h2::after {
+  content: '';
+  display: inline-block;
+  width: 0.55em;
+  height: 1em;
+  margin-left: 0.4rem;
+  vertical-align: -0.12em;
+  background-color: var(--accent);
+  animation: cursor-blink 1.1s steps(1) infinite;
+}
+
+body.dark #contact h2::after {
+  background-color: var(--accent-dark);
+}
+
+@keyframes cursor-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #contact h2::after {
+    animation: none;
+  }
+}
+
+/* Окно терминала в разделе about */
+.terminal {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background-color: #fafafa;
+  font-family: var(--font-mono);
+  overflow: hidden;
+}
+
+body.dark .terminal {
+  border-color: var(--border-dark);
+  background-color: #1a1a1a;
+}
+
+.terminal-bar {
+  display: flex;
+  gap: 0.4rem;
+  padding: 0.7rem 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+body.dark .terminal-bar {
+  border-bottom-color: var(--border-dark);
+}
+
+.terminal-bar span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--muted);
+  opacity: 0.4;
+}
+
+.terminal-bar span:first-child {
+  background-color: var(--accent);
+  opacity: 1;
+}
+
+body.dark .terminal-bar span:first-child {
+  background-color: var(--accent-dark);
+}
+
+.terminal-body {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  padding: 1.5rem;
+}
+
+.avatar {
+  flex-shrink: 0;
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+  border: 2px solid var(--accent);
+  border-radius: 12px;
+}
+
+body.dark .avatar {
+  border-color: var(--accent-dark);
+}
+
+.terminal-text {
+  min-width: 0;
+}
+
+.terminal .terminal-line,
+.terminal .terminal-output {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.terminal .terminal-line {
+  color: var(--fg);
+}
+
+body.dark .terminal .terminal-line {
+  color: var(--fg-dark);
+}
+
+.terminal .terminal-output {
+  margin-bottom: 1.25rem;
+}
+
+.prompt {
+  margin-right: 0.3rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+body.dark .prompt {
+  color: var(--accent-dark);
+}
+
+.terminal-cursor {
+  display: inline-block;
+  width: 0.55em;
+  height: 1em;
+  margin-left: 0.2rem;
+  vertical-align: -0.12em;
+  background-color: var(--accent);
+  animation: cursor-blink 1.1s steps(1) infinite;
+}
+
+body.dark .terminal-cursor {
+  background-color: var(--accent-dark);
+}
+
+/* Пока команда печатается, остальной текст скрыт, но место за ним занято. */
+.terminal.typing .terminal-rest {
+  visibility: hidden;
+}
+
+@media (max-width: 768px) {
+  .terminal-body {
+    flex-direction: column;
+  }
+
+  .avatar {
+    width: 110px;
+    height: 110px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .terminal-cursor {
+    animation: none;
+  }
+}
+
+/* Копирование почты */
+.copy-button {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: var(--accent);
+  cursor: pointer;
+}
+
+.copy-button:hover {
+  text-decoration: underline;
+}
+
+body.dark .copy-button {
+  color: var(--accent-dark);
+}
+
+.copy-status {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+body.dark .copy-status {
+  color: var(--muted-dark);
 }

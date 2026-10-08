@@ -143,10 +143,10 @@ function createProjectCard(project, repo) {
       `<span class="language" style="color: ${getLanguageColor(repo.language)}">${escapeHtml(repo.language)}</span>`
     );
   }
-  if (repo && repo.pushed_at) {
+    if (repo && repo.pushed_at) {
     const pushedDate = new Date(repo.pushed_at).toLocaleDateString('ru-RU');
     stats.push(
-      `<span class="updated-date"><i class="bi bi-clock"></i> ${pushedDate}</span>`
+      `<span class="updated-date" title="Дата последнего обновления репозитория"><i class="bi bi-clock"></i> обновлён ${pushedDate}</span>`
     );
   }
 
@@ -213,6 +213,58 @@ function showClock() {
   setInterval(update, 1000);
 }
 
+function typeWhoami() {
+  const command = byId('whoami-command');
+  const terminal = document.querySelector('.terminal');
+  if (!command || !terminal) {
+    return;
+  }
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    return;
+  }
+
+  const text = command.dataset.text;
+  terminal.classList.add('typing');
+  command.textContent = '';
+
+  let printed = 0;
+  setTimeout(() => {
+    const timer = setInterval(() => {
+      printed += 1;
+      command.textContent = text.slice(0, printed);
+      if (printed >= text.length) {
+        clearInterval(timer);
+        terminal.classList.remove('typing');
+      }
+    }, 120);
+  }, 400);
+}
+
+function setupCopyEmail() {
+  const button = byId('copy-email');
+  const status = byId('copy-status');
+  if (!button || !status) {
+    return;
+  }
+
+  let timer;
+  button.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(button.dataset.email);
+      status.textContent = 'Скопировано';
+    } catch (error) {
+      console.warn('Не удалось скопировать:', error);
+      status.textContent = 'Не удалось скопировать';
+    }
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      status.textContent = '';
+    }, 2000);
+  });
+}
+
 setupGallery();
 showClock();
 showProjects();
+typeWhoami();
+setupCopyEmail();
