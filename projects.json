@@ -28,7 +28,7 @@
     "title": "Telegram-бот для заявок на монтаж и ремонт",
     "kind": "commercial",
     "description": "Заказной бот для компании, которая устанавливает спутниковое ТВ, видеонаблюдение и интернет. Клиент выбирает услугу и дату, оставляет имя и телефон, заявка сохраняется в базе. Также в боте справка, контакты, обратная связь, фотоотчёты о работах и информация по операторам.",
-    "stack": ["Python", "Aiogram", "SQLAlchemy"],
+    "stack": ["Python", "Aiogram", "SQLAlchemy", "SQLite"],
     "screenshots": [
       { "src": "img/projects/tgsatbot/start.png", "alt": "Команда /start: выбор услуги" },
       { "src": "img/projects/tgsatbot/appl.png", "alt": "Оформление заявки" },
