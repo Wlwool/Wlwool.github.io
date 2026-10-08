@@ -677,30 +677,10 @@ body.dark h2::before {
   color: var(--accent-dark);
 }
 
-#contact h2::after {
-  content: '';
-  display: inline-block;
-  width: 0.55em;
-  height: 1em;
-  margin-left: 0.4rem;
-  vertical-align: -0.12em;
-  background-color: var(--accent);
-  animation: cursor-blink 1.1s steps(1) infinite;
-}
-
-body.dark #contact h2::after {
-  background-color: var(--accent-dark);
-}
 
 @keyframes cursor-blink {
   50% {
     opacity: 0;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  #contact h2::after {
-    animation: none;
   }
 }
 
