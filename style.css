@@ -12,7 +12,7 @@
   /* Темная тема */
   --bg-dark: #121212;
   --fg-dark: #f5f5f5;
-  --accent-dark: #4dabf7;
+  --accent-dark: #b3262f;
   --muted-dark: #aaa;
   --border-dark: #333;
 }
@@ -146,7 +146,7 @@ h1, h2, h3 {
 }
 
 h2 {
-  font-size: 2rem;
+  font-size: 1.6rem;
   border-bottom: 2px solid var(--accent);
   padding-bottom: 0.5rem;
   display: inline-block;
@@ -316,6 +316,50 @@ body.dark .repo-stats .updated-date {
   color: var(--muted-dark);
 }
 
+.repo-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0 0 1.5rem;
+  padding: 0;
+}
+
+.repo-tags li {
+  padding: 0.15rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+body.dark .repo-tags li {
+  border-color: var(--border-dark);
+  color: var(--muted-dark);
+}
+
+.repo-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.repo-links a {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.repo-links a:hover {
+  text-decoration: underline;
+}
+
+body.dark .repo-links a {
+  color: var(--accent-dark);
+}
+
 /* Навыки */
 .skills {
   display: grid;
@@ -403,6 +447,10 @@ body.dark footer {
   color: var(--muted-dark);
 }
 
+#clock {
+  font-variant-numeric: tabular-nums;
+}
+
 /* Адаптивность */
 @media (max-width: 768px) {
   nav {
@@ -431,7 +479,7 @@ body.dark footer {
   }
   
   h2 {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
 }
 
@@ -480,4 +528,155 @@ html {
 /* Улучшенные переходы */
 * {
   transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Кнопка галереи и бейдж */
+.repo-gallery-button {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  font-weight: 600;
+  color: var(--accent);
+  cursor: pointer;
+}
+
+.repo-gallery-button:hover {
+  text-decoration: underline;
+}
+
+body.dark .repo-gallery-button {
+  color: var(--accent-dark);
+}
+
+.repo-badge {
+  display: inline-block;
+  margin-bottom: 0.75rem;
+  padding: 0.15rem 0.7rem;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+body.dark .repo-badge {
+  border-color: var(--accent-dark);
+  color: var(--accent-dark);
+}
+
+/* Окно галереи */
+#gallery {
+  width: 100%;
+  max-width: min(90vw, 900px);
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background-color: var(--bg);
+  color: var(--fg);
+}
+
+body.dark #gallery {
+  border-color: var(--border-dark);
+  background-color: #1a1a1a;
+  color: var(--fg-dark);
+}
+
+#gallery::backdrop {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.gallery-body {
+  position: relative;
+  padding: 1.5rem;
+}
+
+#gallery-title {
+  margin: 0 2.5rem 1rem 0;
+  font-size: 1.2rem;
+}
+
+.gallery-stage {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.gallery-stage figure {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  text-align: center;
+}
+
+#gallery-image {
+  max-width: 100%;
+  max-height: 65vh;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+#gallery-caption {
+  margin-top: 0.75rem;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+body.dark #gallery-caption {
+  color: var(--muted-dark);
+}
+
+.gallery-nav,
+.gallery-close {
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 8px;
+  font-size: 1.5rem;
+  color: var(--accent);
+  cursor: pointer;
+}
+
+body.dark .gallery-nav,
+body.dark .gallery-close {
+  color: var(--accent-dark);
+}
+
+.gallery-nav:hover,
+.gallery-close:hover {
+  background-color: var(--border);
+}
+
+body.dark .gallery-nav:hover,
+body.dark .gallery-close:hover {
+  background-color: var(--border-dark);
+}
+
+.gallery-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+#gallery-counter {
+  margin: 1rem 0 0;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+/* Иконки разделов */
+.section-icon {
+  width: 1em;
+  height: 1em;
+  margin-right: 0.5rem;
+  vertical-align: -0.15em;
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+body.dark .section-icon {
+  stroke: var(--accent-dark);
 }

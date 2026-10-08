@@ -1,0 +1,39 @@
+[
+  {
+    "title": "secure-password-generator",
+    "repo": "secure-password-generator",
+    "description": "Веб-приложение для генерации паролей на Flask. Генерация через secrets, проверка длины, оценка сложности, Docker, CI с линтером, mypy и тестами.",
+    "stack": ["Python", "Flask", "Docker", "GitHub Actions"],
+    "demo": "https://flask-docker-app-nhwy.onrender.com/"
+  },
+  {
+    "title": "python_cards_questions",
+    "repo": "python_cards_questions",
+    "description": "Сайт и бот с карточками для подготовки к собеседованиям по Python. Backend на FastAPI, фронтенд на Vue 3, деплой через Docker Compose и Nginx.",
+    "stack": ["Python", "FastAPI", "Aiogram", "SQLAlchemy", "Vue 3", "Docker", "Nginx"]
+  },
+  {
+    "title": "SkyVellum",
+    "repo": "SkyVellum",
+    "description": "Telegram-бот погоды на данных OpenWeather. Асинхронная работа с базой, миграции, планировщик задач.",
+    "stack": ["Python", "Aiogram", "SQLAlchemy", "Alembic", "APScheduler", "Docker"]
+  },
+  {
+    "title": "shtusha-kutusha",
+    "repo": "shtusha-kutusha",
+    "description": "Discord-бот для напоминаний на конкретное время или через заданный промежуток. Напоминания хранятся в SQLite и восстанавливаются после перезапуска, у бота динамический статус с данными о серверах, пользователях и пинге, все изменения логируются.",
+    "stack": ["Python", "discord.py", "APScheduler", "aiosqlite", "dateparser", "Docker"]
+  },
+  {
+    "title": "Telegram-бот для заявок на монтаж и ремонт",
+    "kind": "commercial",
+    "description": "Заказной бот для компании, которая устанавливает спутниковое ТВ, видеонаблюдение и интернет. Клиент выбирает услугу и дату, оставляет имя и телефон, заявка сохраняется в базе. Также в боте справка, контакты, обратная связь, фотоотчёты о работах и информация по операторам.",
+    "stack": ["Python", "Aiogram", "SQLAlchemy", "SQLite"],
+    "screenshots": [
+      { "src": "img/projects/tgsatbot/start.png", "alt": "Команда /start: выбор услуги" },
+      { "src": "img/projects/tgsatbot/appl.png", "alt": "Оформление заявки" },
+      { "src": "img/projects/tgsatbot/accept_app.png", "alt": "Подтверждение принятой заявки" },
+      { "src": "img/projects/tgsatbot/help.png", "alt": "Команда /help: справка по боту" }
+    ]
+  }
+]

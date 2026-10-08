@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Wlwool | Портфолио</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
     <!-- AOS (Animate On Scroll) -->
@@ -50,19 +51,19 @@
     </header>
     <main>
       <section id="about" data-aos="fade-up">
-        <h2>Обо мне</h2>
+        <h2><svg class="section-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>Обо мне</h2>
         <p>
           Я пишу код на Python и работаю в операционной системе Linux Ubuntu для разработки и развертывания приложений. Вдохновляюсь open-source проектами и постоянно учусь новому. В своей работе использую разнообразные библиотеки Python, такие как Flask, Aiogram, Playwright, BeautifulSoup и другие. Также работаю с SQL (PostgreSQL) через SQLAlchemy. Я стремлюсь к постоянному совершенствованию и активно ищу новые возможности для профессионального роста.
         </p>
       </section>
       <section id="projects" data-aos="fade-up">
-        <h2>Проекты</h2>
+        <h2><svg class="section-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Проекты</h2>
         <div id="github-projects">
           <p>Загрузка проектов...</p>
         </div>
       </section>
       <section id="skills" data-aos="fade-up">
-        <h2>Навыки</h2>
+        <h2><svg class="section-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="8 7 3 12 8 17"/><polyline points="16 7 21 12 16 17"/><line x1="14" y1="4" x2="10" y2="20"/></svg>Навыки</h2>
         <ul class="skills">
           <li><i class="bi bi-filetype-py"></i> Python</li>
           <li><i class="bi bi-box-seam"></i> Docker</li>
@@ -79,120 +80,34 @@
         </ul>
       </section>
       <section id="contact" data-aos="fade-up">
-        <h2>Контакты</h2>
+        <h2><svg class="section-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg>Контакты</h2>
         <p><i class="bi bi-envelope-fill"></i> wlzwool@inbox.ru</p>
         <p><i class="bi bi-github"></i> <a href="https://github.com/Wlwool" target="_blank">github.com/Wlwool</a></p>
       </section>
     </main>
     <footer>
-      <p>&copy; 2025 Wlwool</p>
+      <p>&copy; Wlwool &middot; <time id="clock"></time></p>
     </footer>
     
-    <!-- GitHub Pinned Projects Script -->
-    <script>
-      const PINNED_REPO_NAMES = [
-        'SkyVellum',
-        'shtusha-kutusha',
-        'flask-docker-app',
-        'File-sorter',
-        'port_scanner'
-      ];
-      
-      async function fetchPinnedRepos() {
-        try {
-          const response = await fetch('https://api.github.com/users/Wlwool/repos?per_page=100');
-          const allRepos = await response.json();
-          
-          const pinnedRepos = [];
-          
-          // Сохраняем порядок из массива PINNED_REPO_NAMES
-          PINNED_REPO_NAMES.forEach(repoName => {
-            const repo = allRepos.find(r => r.name === repoName);
-            if (repo) {
-              pinnedRepos.push(repo);
-            }
-          });
-          
-          if (pinnedRepos.length > 0) {
-            displayRepos(pinnedRepos, true);
-          } else {
-            // показ самыx популярных репозиториев
-            const topRepos = allRepos
-              .sort((a, b) => b.stargazers_count - a.stargazers_count)
-              .slice(0, 6);
-            displayRepos(topRepos, false);
-          }
-          
-        } catch (error) {
-          console.error('Ошибка загрузки репозиториев:', error);
-          document.getElementById('github-projects').innerHTML = '<p>Ошибка загрузки проектов</p>';
-        }
-      }
-      
-      function displayRepos(repos, isPinned = false) {
-        const container = document.getElementById('github-projects');
-        container.innerHTML = '';
-        
-        // заголовок
-        const header = document.createElement('div');
-        header.className = 'projects-header';
-        header.innerHTML = `<p class="projects-note">${isPinned ? '📌 Закрепленные репозитории' : '⭐ Популярные репозитории'}</p>`;
-        container.appendChild(header);
-        
-        repos.forEach(repo => {
-          const card = document.createElement('div');
-          card.className = 'repo-card';
-          
-          const languageColor = getLanguageColor(repo.language);
-          const languageInfo = repo.language 
-            ? `<span class="language" style="color: ${languageColor}">${repo.language}</span>`
-            : '';
-          
-          // дата последнего обновления
-          const updatedDate = new Date(repo.updated_at).toLocaleDateString('ru-RU');
-          
-          card.innerHTML = `
-            <h3><a href="${repo.html_url}" target="_blank">${repo.name}</a></h3>
-            <p class="repo-description">${repo.description || 'Нет описания'}</p>
-            <div class="repo-stats">
-              ${languageInfo}
-              <span><i class="bi bi-star-fill"></i> ${repo.stargazers_count}</span>
-              <span><i class="bi bi-diagram-3-fill"></i> ${repo.forks_count}</span>
-              <span class="updated-date"><i class="bi bi-clock"></i> ${updatedDate}</span>
-            </div>
-          `;
-          container.appendChild(card);
-        });
-      }
-      
-      function getLanguageColor(language) {
-        const colors = {
-          'Python': '#3776ab',
-          'JavaScript': '#f1e05a',
-          'HTML': '#e34c26',
-          'CSS': '#1572b6',
-          'TypeScript': '#2b7489',
-          'Java': '#b07219',
-          'C++': '#f34b7d',
-          'C': '#555555',
-          'Go': '#00add8',
-          'Rust': '#dea584',
-          'PHP': '#4f5d95',
-          'Ruby': '#701516',
-          'Swift': '#ffac45',
-          'Kotlin': '#7f52ff',
-          'Dart': '#00b4ab',
-          'Shell': '#89e051',
-          'Dockerfile': '#384d54'
-        };
-        return colors[language] || '#666';
-      }
-      
-      // загрузка репозиториев
-      fetchPinnedRepos();
-    </script>
-    
     <!-- AOS init -->
+
+    <dialog id="gallery" aria-label="Скриншоты проекта">
+  <div class="gallery-body">
+    <button type="button" class="gallery-close" id="gallery-close" aria-label="Закрыть"><i class="bi bi-x-lg"></i></button>
+    <h3 id="gallery-title"></h3>
+    <div class="gallery-stage">
+      <button type="button" class="gallery-nav" id="gallery-prev" aria-label="Предыдущий скриншот"><i class="bi bi-chevron-left"></i></button>
+      <figure>
+        <img id="gallery-image" alt="" />
+        <figcaption id="gallery-caption"></figcaption>
+      </figure>
+      <button type="button" class="gallery-nav" id="gallery-next" aria-label="Следующий скриншот"><i class="bi bi-chevron-right"></i></button>
+    </div>
+    <p id="gallery-counter"></p>
+  </div>
+</dialog>
+
+    <script src="main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script>
       AOS.init({
