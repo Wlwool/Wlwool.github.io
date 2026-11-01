@@ -35,5 +35,36 @@
       { "src": "img/projects/tgsatbot/accept_app.png", "alt": "Подтверждение принятой заявки" },
       { "src": "img/projects/tgsatbot/help.png", "alt": "Команда /help: справка по боту" }
     ]
+  },
+  {
+    "title": "Demand Monitor: автоматический приём заявок",
+    "kind": "commercial",
+    "description": "Сервис следит за веб-порталом заявок в рабочие часы: находит новые заявки, сразу уведомляет сотрудников в Telegram и автоматически принимает заявку в работу. Проверочное изображение распознаёт ИИ (vision-модель GLM-4.6V-Flash): на тестовой выборке 15 из 15 верных ответов. Наружу уходит только само изображение каптчи, без персональных данных. Браузером управляет Playwright, при сбоях попытки повторяются, итог по каждой заявке приходит в Telegram. Работает на VPS в Docker",
+    "stack": [
+      "Python",
+      "Playwright",
+      "ИИ (vision-модель)",
+      "SQLite",
+      "Telegram Bot API",
+      "Docker Compose"
+    ],
+    "screenshots": [
+      {
+        "src": "img/projects/demand-monitor/demand_accept1.png",
+        "alt": "Уведомление в Telegram: заявка принята (1)"
+      },
+      {
+        "src": "img/projects/demand-monitor/demand_accept2.png",
+        "alt": "Уведомление в Telegram: заявка принята (2)"
+      },
+      {
+        "src": "img/projects/demand-monitor/logs_demand1.png",
+        "alt": "Лог работы сервиса: этапы обработки заявки (часть 1)"
+      },
+      {
+        "src": "img/projects/demand-monitor/logs_demand2.png",
+        "alt": "Лог работы сервиса: этапы обработки заявки (часть 2)"
+      }
+    ]
   }
 ]
